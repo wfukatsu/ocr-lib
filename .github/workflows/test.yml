@@ -1,0 +1,47 @@
+# テストは合成データだけを使う。資料や OCR の出力は CI に置かない。
+name: test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # docling を入れない環境。構造化 OCR のテストは飛ばされる
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: |
+            constraints.txt
+            pyproject.toml
+      - run: pip install -c constraints.txt -e ".[test]"
+      - run: pytest -q
+
+  # docling を入れた環境 (CPU 版の torch)。LibreOffice も入れ、旧形式の変換のテストも通す。
+  # docling が入れる opencv は libGL を必要とする
+  test-ocr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: |
+            constraints.txt
+            pyproject.toml
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends libreoffice-writer libreoffice-calc libgl1 libglib2.0-0
+      - run: pip install -c constraints.txt --extra-index-url https://download.pytorch.org/whl/cpu -e ".[ocr,test]"
+      - run: pytest -q

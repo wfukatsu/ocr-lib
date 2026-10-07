@@ -503,7 +503,7 @@ pytest
 テストは合成した Word / PDF / 画像と、架空の帳票・用語だけを使う。実資料や、特定の組織の帳票の定義・用語はリポジトリに含めない。
 
 - `constraints.txt` は動作を確認した版。docling は内部構造に依存しているので、更新するときは `dococr-eval` で確かめる。
-- GitLab では、マージリクエストと main への反映のたびにテストを実行する (`.gitlab-ci.yml`)。docling を入れない環境と入れた環境の 2 通り。
+- GitHub Actions で、プルリクエストと main への反映のたびにテストを実行する (`.github/workflows/test.yml`)。docling を入れない環境と入れた環境の 2 通り。
 
 ## ライセンス
 
