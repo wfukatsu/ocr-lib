@@ -7,6 +7,7 @@
 | --- | --- | --- |
 | [公開されている仕様書](#公開されている仕様書-mlit-kikai-r4) | 国土交通省の標準仕様書 (PDF) | 経路判定、テキスト層の経路と OCR の経路の違い |
 | [取り消し線](#取り消し線-strike) | このリポジトリで作った架空の作業要領書 (Word / Excel / PDF / スキャン PDF) | 形式ごとの取り消し線の抽出と、要確認の出方 |
+| [手書き](#手書き-handwriting) | このリポジトリで作った架空の点検記録と連絡メモ (画像だけの PDF) | 手書きの値を、標準の OCR、macOS の Vision、視覚モデルがそれぞれどこまで読めるか |
 
 # 公開されている仕様書 (`mlit-kikai-r4/`)
 
@@ -130,3 +131,92 @@ dococr-strike samples/strike/source/youryou_scan.pdf --out-dir samples/strike/ou
 - **スキャン PDF の誤読**: 「ベルト」を「ペルト」と読んでいる。取り消し線とは関係のない、文字認識の誤り。3 文字の語なので、用語集を渡しても補正されない (4 文字未満の語は扱わない)。
   空白も元文書と違う (`6 か月` → `6か月`)。
 - **このサンプルで確かめられていないこと**: 紙を読み取った画像の傾き、かすれ、手書きの線。
+
+# 手書き (`handwriting/`)
+
+活字の帳票に手書きで値を書き込んだページと、手書きだけのメモのページを、3 つの手段で読んだ。
+
+## 元文書
+
+[`handwriting/make_sample.py`](handwriting/make_sample.py) が作る。内容は架空で、実在の文書や組織とは関係がない。
+
+| 元文書 | 内容 |
+| --- | --- |
+| [`handwriting/source/tenken_tegaki.pdf`](handwriting/source/tenken_tegaki.pdf) | 画像だけの PDF (300dpi、2 ページ)。p.1 は点検記録、p.2 は連絡メモ |
+| [`handwriting/source/expected.json`](handwriting/source/expected.json) | 手書きで書き込んだ内容 (正解) |
+
+p.1 の手書きは、欄外の番号 (`No. 27`)、表の上の 4 つの欄、測定値と判定の 5 行、チェック欄のチェック 2 つ、所見の 2 行。
+p.2 は、題名のほかはすべて手書き (4 行)。
+
+**手書きは人が書いたものではない。** 手書き風のフォント (Yomogi、SIL Open Font License 1.1) の文字を、
+1 文字ずつ傾き・大きさ・位置をばらつかせて描いた。字の形はそろっていて、続け字、かすれ、にじみ、紙の傾きはない。
+人が書いた文字より読みやすいはずで、ここでの結果は上限の目安として見る。フォントは同梱していない。
+
+## 変換後のファイル
+
+| 手段 | 変換後のファイル | 併せて出るファイル |
+| --- | --- | --- |
+| 標準の OCR (`dococr-ocr`) | [`handwriting/output/ocr/tenken_tegaki.md`](handwriting/output/ocr/tenken_tegaki.md) | `tenken_tegaki.meta.json` / `tenken_tegaki.checkbox.json` / `tenken_tegaki.strike.json` |
+| macOS の Vision | [`handwriting/output/vision/tenken_tegaki.vision.txt`](handwriting/output/vision/tenken_tegaki.vision.txt) | |
+| 視覚モデル (`dococr-vlm`、p.1 のみ) | [`handwriting/output/vlm/tenken_tegaki.vlm.md`](handwriting/output/vlm/tenken_tegaki.vlm.md) | `tenken_tegaki.vlm.json` |
+
+## 再現の手順
+
+```bash
+python samples/handwriting/make_sample.py samples/handwriting/source --hand-font Yomogi-Regular.ttf   # pillow が要る
+
+dococr-ocr --ndlocr-src ndlocr-lite/src --out samples/handwriting/output/ocr --no-glossary samples/handwriting/source/tenken_tegaki.pdf
+
+# 視覚モデル。ページ画像を社外に送信する (ここでは架空の文書なので送っている)
+dococr-vlm --task measurement --pages 1 --ndlocr-src ndlocr-lite/src --out samples/handwriting/output/vlm \
+    --provider claude-code --allow-external samples/handwriting/source/tenken_tegaki.pdf
+```
+
+Vision でページ全体を読むコマンドはない (`dococr-ocr` が Vision を使うのは、図面のページと帳票の値の多数決だけ)。
+置いてある結果は、ページを 300dpi の画像にして `dococr.crosscheck.vision_read` に渡し、`dococr.textutil.join_rows` で行にまとめたもの。
+
+## 結果から分かること
+
+| 手書きの箇所 | 標準の OCR | Vision | 視覚モデル (p.1) |
+| --- | --- | --- | --- |
+| 欄外の番号 `No. 27` | ○ (題名の行に、崩れた `16-27` と二重に出る) | ○ | ○ |
+| 上の 4 つの欄 (日付、氏名、設備名、天候) | 4 / 4 | 4 / 4 | 3 / 4 (点検者が空) |
+| 測定値 (5 行) | 4 / 5 (`50` → `15`) | 5 / 5 | 5 / 5 |
+| 判定 (5 行、1 文字) | 3 / 5 (`否` → `KD`、`良` → `表`) | 5 / 5 | 5 / 5 |
+| チェック欄 (3 つ、うち 2 つにチェック) | × (一覧に出ない。行が崩れ、「給油」が落ちる) | × (記号を `M` `ロ` `k` と読む) | ○ (3 つとも正しい) |
+| 所見 (2 行) | 2 / 2 | 2 / 2 | 2 / 2 |
+| メモ (p.2、4 行) | 4 / 4 (3 行目が誤ってチェック欄になる) | 4 / 4 | 読んでいない |
+
+- **そろった字の手書きは、標準の OCR でも文として読める。** 所見とメモの 6 行は 1 文字も誤っていない。
+- **標準の OCR は、短い値を誤る。** 2 文字の数値と 1 文字の判定で 3 か所。前後の文字がないので、形の近い別の文字になる。
+  誤った 3 か所は要確認にも挙がっていない (`meta.json` の `low_conf` は 0)。
+- **標準の OCR は、手書きのチェックを取れていない。** チェックが四角からはみ出していると、画像から四角として見つからない (見つかったのは、チェックのない「ベルト交換」の四角だけ)。
+  その四角も行の途中にあるので、チェック欄として扱われない。結果として 3 つとも一覧に出ず、要確認にも挙がらない。
+  チェックの入った四角は「図」と読まれ、行の文字も崩れる。
+- **標準の OCR の誤検出**: p.2 の「部品が届きしだい交換します。」が、未チェックのチェック欄になった。
+  手書きの大きな字では、行頭の「部」の中の「口」がチェック欄の四角と同じ大きさになり、空の四角として拾われる。
+- **Vision は、手書きの文字をすべて正しく読んだ。** 誤りは活字の側にある (`12.5 A` → `125A`、`70 ℃` → `7O°C`、`1 MΩ` → `1M2`)。
+  チェックの有無は分からない。
+- **視覚モデルは、チェックの有無まで取れた。** 一方で、点検者の欄 (「山田 太郎」) を空で返した。値の抜けは、出力からは気づけない。
+  1 ページで約 23 秒、0.22 USD。
+- **活字の誤読** (標準の OCR): 「空調」→「空謂」、「70 ℃ 以下」→「70以下」、「所見」→「見所」。手書きとは関係がない。
+
+### 字の形による違い
+
+同じ内容を、ほかの手書き風のフォントでも作って標準の OCR で読んだ (出力は置いていない)。
+欄外の番号、上の 4 つの欄、測定値、所見、メモの 16 か所のうち、正しく読めた数は次のとおり。
+
+| フォント | 字の形 | 正しく読めた数 |
+| --- | --- | --- |
+| Yomogi (置いてあるサンプル) | ペン字、そろっている | 15 / 16 |
+| Zen Kurenaido | ペン字、そろっている | 15 / 16 |
+| Hachi Maru Pop | 丸文字 | 12 / 16 |
+| Yuji Boku | 筆 | 11 / 16 |
+| Darumadrop One | 太い崩した字 | 5 / 16 |
+
+字の形が活字から離れるほど読めなくなる。丸文字や筆の字では、文の行も誤る。
+
+### このサンプルで確かめられていないこと
+
+- 人が書いた文字。続け字、くせ字、かすれ、にじみ、紙の傾き、罫線にかかった字。
+- Vision と視覚モデルの、字の形による違い (上の比較は標準の OCR だけ)。

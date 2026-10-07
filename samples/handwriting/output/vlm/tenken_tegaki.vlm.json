@@ -1,0 +1,308 @@
+[
+ {
+  "page": 1,
+  "values": 36,
+  "supported": 28,
+  "review": 8,
+  "seconds": 22.8,
+  "input_tokens": 29214,
+  "output_tokens": 1575,
+  "cost_usd": 0.2172104,
+  "images": 5,
+  "result": {
+   "tables": [
+    {
+     "title": "空調設備 定期点検 記録(基本情報)",
+     "columns": [
+      "項目",
+      "値"
+     ],
+     "rows": [
+      [
+       {
+        "value": "No.",
+        "unsure": false,
+        "supported": false,
+        "review": true
+       },
+       {
+        "value": "27",
+        "unsure": false,
+        "supported": false,
+        "review": true
+       }
+      ],
+      [
+       {
+        "value": "点検日",
+        "unsure": false,
+        "supported": true,
+        "review": false
+       },
+       {
+        "value": "2026年9月14日",
+        "unsure": false,
+        "supported": true,
+        "review": false
+       }
+      ],
+      [
+       {
+        "value": "点検者",
+        "unsure": false,
+        "supported": true,
+        "review": false
+       },
+       {
+        "value": "",
+        "unsure": false
+       }
+      ],
+      [
+       {
+        "value": "設備名",
+        "unsure": false,
+        "supported": true,
+        "review": false
+       },
+       {
+        "value": "第2棟 送風機 AHU-3",
+        "unsure": false,
+        "supported": true,
+        "review": false
+       }
+      ],
+      [
+       {
+        "value": "天候",
+        "unsure": false,
+        "supported": true,
+        "review": false
+       },
+       {
+        "value": "晴れ",
+        "unsure": false,
+        "supported": true,
+        "review": false
+       }
+      ]
+     ]
+    },
+    {
+     "title": "測定記録",
+     "columns": [
+      "項目",
+      "基準値",
+      "測定値",
+      "判定"
+     ],
+     "rows": [
+      [
+       {
+        "value": "風量",
+        "unsure": false,
+        "supported": true,
+        "review": false
+       },
+       {
+        "value": "1,500 m3/h 以上",
+        "unsure": false,
+        "supported": true,
+        "review": false
+       },
+       {
+        "value": "1,620",
+        "unsure": false,
+        "supported": true,
+        "review": false
+       },
+       {
+        "value": "良",
+        "unsure": false,
+        "supported": true,
+        "review": false
+       }
+      ],
+      [
+       {
+        "value": "運転電流",
+        "unsure": false,
+        "supported": true,
+        "review": false
+       },
+       {
+        "value": "12.5 A 以下",
+        "unsure": false,
+        "supported": true,
+        "review": false
+       },
+       {
+        "value": "11.8",
+        "unsure": false,
+        "supported": true,
+        "review": false
+       },
+       {
+        "value": "良",
+        "unsure": false,
+        "supported": true,
+        "review": false
+       }
+      ],
+      [
+       {
+        "value": "軸受温度",
+        "unsure": false,
+        "supported": true,
+        "review": false
+       },
+       {
+        "value": "70 ℃ 以下",
+        "unsure": false,
+        "supported": false,
+        "review": true
+       },
+       {
+        "value": "73.5",
+        "unsure": false,
+        "supported": true,
+        "review": false
+       },
+       {
+        "value": "否",
+        "unsure": false,
+        "supported": false,
+        "review": true
+       }
+      ],
+      [
+       {
+        "value": "振動",
+        "unsure": false,
+        "supported": true,
+        "review": false
+       },
+       {
+        "value": "4.5 mm/s 以下",
+        "unsure": false,
+        "supported": true,
+        "review": false
+       },
+       {
+        "value": "2.3",
+        "unsure": false,
+        "supported": true,
+        "review": false
+       },
+       {
+        "value": "良",
+        "unsure": false,
+        "supported": true,
+        "review": false
+       }
+      ],
+      [
+       {
+        "value": "絶縁抵抗",
+        "unsure": false,
+        "supported": true,
+        "review": false
+       },
+       {
+        "value": "1 MΩ 以上",
+        "unsure": false,
+        "supported": true,
+        "review": false
+       },
+       {
+        "value": "50",
+        "unsure": false,
+        "supported": false,
+        "review": true
+       },
+       {
+        "value": "良",
+        "unsure": false,
+        "supported": true,
+        "review": false
+       }
+      ]
+     ]
+    },
+    {
+     "title": "実施した作業",
+     "columns": [
+      "作業",
+      "チェック"
+     ],
+     "rows": [
+      [
+       {
+        "value": "フィルター清掃",
+        "unsure": false,
+        "supported": true,
+        "review": false
+       },
+       {
+        "value": "✓",
+        "unsure": false,
+        "supported": false,
+        "review": true
+       }
+      ],
+      [
+       {
+        "value": "ベルト交換",
+        "unsure": false,
+        "supported": true,
+        "review": false
+       },
+       {
+        "value": "",
+        "unsure": false
+       }
+      ],
+      [
+       {
+        "value": "給油",
+        "unsure": false,
+        "supported": false,
+        "review": true
+       },
+       {
+        "value": "✓",
+        "unsure": false,
+        "supported": false,
+        "review": true
+       }
+      ]
+     ]
+    },
+    {
+     "title": "所見",
+     "columns": [
+      "所見"
+     ],
+     "rows": [
+      [
+       {
+        "value": "軸受温度が基準を超えている。",
+        "unsure": false,
+        "supported": true,
+        "review": false
+       }
+      ],
+      [
+       {
+        "value": "次回の点検までにベアリングを交換する。",
+        "unsure": false,
+        "supported": true,
+        "review": false
+       }
+      ]
+     ]
+    }
+   ]
+  }
+ }
+]
