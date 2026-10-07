@@ -1,0 +1,26 @@
+{
+  "forms": [
+    {
+      "name": "備品台帳",
+      "layout": "cells",
+      "labels": ["資産番号", "品名", "型番", "登録No", "購入先", "設置日", "設置場所", "重要度", "管理部署", "備考"],
+      "types": {"重要度": "[SABC]"},
+      "min_labels": 6
+    },
+    {
+      "name": "計画概要書",
+      "layout": "regions",
+      "labels": {
+        "題名": "right",
+        "予算額": "right",
+        "期間": "right",
+        "担当部署": "below",
+        "区分": "below",
+        "概要": "right",
+        "理由": "right"
+      },
+      "order": [["題名", "予算額", "期間"], ["概要", "理由"]],
+      "min_labels": 5
+    }
+  ]
+}

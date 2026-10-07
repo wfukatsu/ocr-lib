@@ -1,0 +1,28 @@
+# テストは合成データだけを使う。資料や OCR の出力は CI に置かない。
+default:
+  image: python:3.12-slim
+  cache:
+    key: pip
+    paths: [.cache/pip]
+
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+# docling を入れない環境。構造化 OCR のテストは飛ばされる
+test:
+  script:
+    - pip install -c constraints.txt -e ".[test]"
+    - pytest -q
+
+# docling を入れた環境 (CPU 版の torch)。LibreOffice も入れ、旧形式の変換のテストも通す。
+# docling が入れる opencv は libGL を必要とする
+test-ocr:
+  script:
+    - apt-get update -qq && apt-get install -y -qq --no-install-recommends libreoffice-writer libreoffice-calc libgl1 libglib2.0-0 > /dev/null
+    - pip install -c constraints.txt --extra-index-url https://download.pytorch.org/whl/cpu -e ".[ocr,test]"
+    - pytest -q

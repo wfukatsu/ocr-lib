@@ -1,0 +1,27 @@
+{
+ "source": "https://www.mlit.go.jp/gobuild/content/001879206.pdf",
+ "route": "text",
+ "route_label": "テキスト層を使用",
+ "page_kinds": {
+  "text": 358,
+  "image": 2
+ },
+ "ocr_pages": [
+  294,
+  312
+ ],
+ "seconds": 28.5,
+ "status": [
+  "success"
+ ],
+ "items": {
+  "section_header": 47,
+  "text": 34,
+  "list_item": 147,
+  "table": 3,
+  "caption": 1
+ },
+ "garbage_dropped": 0,
+ "figures": [],
+ "pages": []
+}

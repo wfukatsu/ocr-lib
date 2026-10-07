@@ -1,0 +1,18 @@
+# 動作を確認した版。`pip install -c constraints.txt -e ".[ocr,test]"` のように使う。
+# docling は OCR 段の差し替えで内部構造に依存しているので、更新するときは採点 (dococr-eval) で確かめる。
+docling==2.133.0
+docling-core==2.99.0
+docling-ibm-models==4.0.3
+docling-parse==7.22.2
+pypdfium2==5.14.0
+pdfplumber==0.11.10
+pdfminer.six==20260107
+opencv-python-headless==4.11.0.86
+numpy==2.2.2
+openpyxl==3.1.5
+torch==2.14.1
+torchvision==0.29.1
+onnxruntime==1.23.2
+pillow==12.3.0
+pytest==9.1.1
+reportlab==4.2.5

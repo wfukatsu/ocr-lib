@@ -1,0 +1,41 @@
+{
+ "source": "samples/strike/source/youryou_scan.pdf",
+ "route": "image",
+ "route_label": "テキスト層がないため OCR",
+ "page_kinds": {
+  "image": 1
+ },
+ "seconds": 11.6,
+ "status": [
+  "success"
+ ],
+ "items": {
+  "section_header": 5,
+  "text": 5,
+  "list_item": 3,
+  "table": 1
+ },
+ "garbage_dropped": 0,
+ "figures": [],
+ "pages": [
+  {
+   "page": 1,
+   "regions": 23,
+   "lines": 25,
+   "regions_reocr": 0,
+   "page_collapsed": false,
+   "garbage": 0,
+   "ink_covered": 1.0,
+   "checkboxes": 0,
+   "checkbox_review": 0,
+   "checkbox_recovered": 0,
+   "strike_lines": 6,
+   "struck": 6,
+   "strike_review": 0,
+   "low_conf": 0,
+   "glossary_fixes": 0,
+   "glossary_suggestions": 0,
+   "figures": 0
+  }
+ ]
+}

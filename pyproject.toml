@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dococr"
+version = "0.1.0"
+description = "日本語の業務文書の読み取り: docling + NDLOCR-Lite による構造化 OCR、帳票の欄抽出、取り消し線・チェック欄の抽出"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+dependencies = ["pdfplumber", "opencv-python-headless", "numpy", "openpyxl"]
+
+[project.optional-dependencies]
+# スキャン PDF 用。docling の内部構造に依存するのでバージョンを固定する。
+# NDLOCR-Lite (v1.3.0 で確認) は別途 clone して --ndlocr-src で指定する
+ocr = ["docling==2.133.0", "pypdfium2>=5,<6"]
+vlm = ["anthropic"]  # 視覚モデルの試行用。ページ画像を社外のサービスに送信する
+vision = ["ocrmac"]  # macOS のみ。帳票の値の多数決に Vision を使う
+test = ["pytest", "reportlab", "pillow", "openpyxl"]
+
+[project.scripts]
+dococr-strike = "dococr.cli:main"
+dococr-convert = "dococr.convert:main"
+dococr-form = "dococr.form_reader:main"
+dococr-ocr = "dococr.pipeline:main"
+dococr-review = "dococr.review:main"
+dococr-eval = "dococr.evaluate:main"
+dococr-map = "dococr.mapping:main"
+dococr-glossary = "dococr.glossary:main"
+dococr-vlm = "dococr.vlm:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]

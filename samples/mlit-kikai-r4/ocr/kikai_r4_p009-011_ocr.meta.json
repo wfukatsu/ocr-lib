@@ -1,0 +1,81 @@
+{
+ "source": "https://www.mlit.go.jp/gobuild/content/001879206.pdf",
+ "route": "image",
+ "route_label": "テキスト層がないため OCR",
+ "page_kinds": {
+  "text": 358,
+  "image": 2
+ },
+ "seconds": 37.2,
+ "status": [
+  "success"
+ ],
+ "items": {
+  "list_item": 18,
+  "section_header": 4,
+  "text": 3,
+  "table": 2,
+  "caption": 1
+ },
+ "garbage_dropped": 0,
+ "figures": [],
+ "pages": [
+  {
+   "page": 9,
+   "regions": 61,
+   "lines": 41,
+   "regions_reocr": 2,
+   "page_collapsed": false,
+   "garbage": 0,
+   "ink_covered": 0.98,
+   "checkboxes": 0,
+   "checkbox_review": 0,
+   "checkbox_recovered": 0,
+   "strike_lines": 0,
+   "struck": 0,
+   "strike_review": 0,
+   "low_conf": 0,
+   "glossary_fixes": 0,
+   "glossary_suggestions": 0,
+   "figures": 0
+  },
+  {
+   "page": 10,
+   "regions": 12,
+   "lines": 76,
+   "regions_reocr": 1,
+   "page_collapsed": false,
+   "garbage": 0,
+   "ink_covered": 0.96,
+   "checkboxes": 0,
+   "checkbox_review": 0,
+   "checkbox_recovered": 0,
+   "strike_lines": 0,
+   "struck": 0,
+   "strike_review": 0,
+   "low_conf": 2,
+   "glossary_fixes": 0,
+   "glossary_suggestions": 0,
+   "figures": 0
+  },
+  {
+   "page": 11,
+   "regions": 5,
+   "lines": 78,
+   "regions_reocr": 1,
+   "page_collapsed": false,
+   "garbage": 0,
+   "ink_covered": 0.97,
+   "checkboxes": 0,
+   "checkbox_review": 0,
+   "checkbox_recovered": 0,
+   "strike_lines": 0,
+   "struck": 0,
+   "strike_review": 0,
+   "low_conf": 1,
+   "glossary_fixes": 2,
+   "glossary_suggestions": 0,
+   "figures": 0
+  }
+ ]
+}

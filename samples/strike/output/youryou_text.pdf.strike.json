@@ -1,0 +1,38 @@
+[
+ {
+  "page": 1,
+  "kind": "strike",
+  "text": "第1棟の空調設備にも準用する。",
+  "certain": true
+ },
+ {
+  "page": 1,
+  "kind": "strike",
+  "text": "点検は 6 か月ごとに実施する。",
+  "certain": true
+ },
+ {
+  "page": 1,
+  "kind": "strike",
+  "text": "目視で確認する。",
+  "certain": true
+ },
+ {
+  "page": 1,
+  "kind": "strike",
+  "text": "(4) 作業後、担当者が点検記録に押印する。",
+  "certain": true
+ },
+ {
+  "page": 1,
+  "kind": "strike",
+  "text": "1,200",
+  "certain": true
+ },
+ {
+  "page": 1,
+  "kind": "strike",
+  "text": "定格の 110 % 以下",
+  "certain": true
+ }
+]
