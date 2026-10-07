@@ -1,0 +1,60 @@
+{
+ "source": "samples/handwriting/source/tenken_tegaki.pdf",
+ "route": "image",
+ "route_label": "テキスト層がないため OCR",
+ "page_kinds": {
+  "image": 2
+ },
+ "seconds": 26.0,
+ "status": [
+  "success"
+ ],
+ "items": {
+  "table": 2,
+  "section_header": 2,
+  "checkbox_selected": 1,
+  "text": 6
+ },
+ "garbage_dropped": 0,
+ "figures": [],
+ "pages": [
+  {
+   "page": 1,
+   "regions": 26,
+   "lines": 40,
+   "regions_reocr": 3,
+   "page_collapsed": false,
+   "garbage": 0,
+   "ink_covered": 1.0,
+   "checkboxes": 0,
+   "checkbox_review": 0,
+   "checkbox_recovered": 0,
+   "strike_lines": 0,
+   "struck": 0,
+   "strike_review": 0,
+   "low_conf": 0,
+   "glossary_fixes": 0,
+   "glossary_suggestions": 0,
+   "figures": 0
+  },
+  {
+   "page": 2,
+   "regions": 18,
+   "lines": 5,
+   "regions_reocr": 0,
+   "page_collapsed": false,
+   "garbage": 0,
+   "ink_covered": 1.0,
+   "checkboxes": 1,
+   "checkbox_review": 0,
+   "checkbox_recovered": 0,
+   "strike_lines": 0,
+   "struck": 0,
+   "strike_review": 0,
+   "low_conf": 0,
+   "glossary_fixes": 0,
+   "glossary_suggestions": 0,
+   "figures": 0
+  }
+ ]
+}

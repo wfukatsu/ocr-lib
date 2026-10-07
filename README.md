@@ -131,6 +131,14 @@ Markdown の中の要確認は、HTML コメント (`<!-- 要確認 p.N: … -->
 | [`samples/strike/source/youryou_text.pdf`](samples/strike/source/youryou_text.pdf) (テキスト層のある PDF) | [`samples/strike/output/youryou_text.pdf.md`](samples/strike/output/youryou_text.pdf.md) |
 | [`samples/strike/source/youryou_scan.pdf`](samples/strike/source/youryou_scan.pdf) (スキャン PDF) | [`samples/strike/output/scan/youryou_scan.md`](samples/strike/output/scan/youryou_scan.md) |
 
+手書きのサンプルは、架空の点検記録と連絡メモを手書き風のフォントで作ったもの (`samples/handwriting/make_sample.py`)。
+
+| 元文書 | 変換後のファイル |
+| --- | --- |
+| [`samples/handwriting/source/tenken_tegaki.pdf`](samples/handwriting/source/tenken_tegaki.pdf) (画像だけの PDF) | [標準の OCR](samples/handwriting/output/ocr/tenken_tegaki.md) / [macOS の Vision](samples/handwriting/output/vision/tenken_tegaki.vision.txt) / [視覚モデル](samples/handwriting/output/vlm/tenken_tegaki.vlm.md) |
+
+そろった字の手書きの文は標準の OCR でも読めるが、1〜2 文字の値は誤り、手書きのチェックは取れない。崩した字は文も読めない。
+
 実行したコマンド、併せて出る JSON、結果の読み方は [`samples/README.md`](samples/README.md) にある。
 
 ### 資料を外部に送らない
